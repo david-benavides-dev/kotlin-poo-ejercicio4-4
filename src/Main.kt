@@ -1,48 +1,86 @@
-// Constructor primario
-class Coche(var color: String? = null, val marca: String, val modelo: String, val numeroCaballos: Int, val numeroPuertas: Int? = null, val matricula: Int? = null) {
-//    Crear una clase Coche, a través de la cual se pueda conocer el
-//    color del coche, la marca, el modelo, el número de caballos, el número de puertas y
-//    la matrícula. Crear el constructor del coche, así como el métod toString().
-//
-//    Marca y modelo no podrán ser blancos ni nulos y no podrán modificarse.
-//    Número de caballos, número de puertas y matrícula no podrán modificarse, ni podrán ser nulos.
-//    Color podrá modificarse, pero no podrá ser nulo.
-
-    init {
-        // Marca y modelo no podrán ser blancos ni nulos y no podrán modificarse.
-        require(modelo.isNotEmpty() && modelo != null) { "El modelo no puede estar en blanco." }
-        require(marca.isNotBlank() && modelo != null) { "La marca no puede estar en blanco." }
-        require(numeroPuertas != null) { "El número de puertas no puede ser nulo" }
-        require(matricula != null) { "La matrícula no puede ser nula." }
-        require(color != null) {"El color no puede ser nulo."}
-    }
-
-
-    override fun toString(): String {
-        return "*******INFOCOCHE*******" +
-                "\nColor: $color" +
-                "\nMarca: $marca" +
-                "\nModelo: $modelo" +
-                "\nNúmero de caballos: $numeroCaballos" +
-                "\nNúmero de puertas: $numeroPuertas" +
-                "\nMatrícula: $matricula" +
-                "\n***********************"
-    }
-
-//    Modifica el atributo matricula para que no permita actualizar la matrícula con un valor que no tenga 7 caracteres.
-//    Los atributos de modelo la marca siempre se devolverán con la primera letra en mayúscula.
-//    Realiza también una modificación del atributo número de caballos, para que no permita actualizar el atributo numCaballos con un valor interior a 70, ni superior a 700.
-//    Realiza una modificación del atributo número de puertas, para que no permita actualizar el atributo numPuertas con un valor inferior a 3, ni superior a 5.
-//    Ten en cuenta todas estas condiciones a la hora de crear el constructor de la clase.
-}
-
+import classes.Coche
 
 fun main() {
+    val coche1 = Coche("Azul", "marca", "modelo", 87, 4, "1234567")
+    val coche2 = Coche("Blanco", "marca", "modelo", 87, 4, "1234567")
+
+    println(coche1)
+    println("")
+    println(coche2)
+
+
+    //  Intenta instanciar y modificar con la marca y modelo con valores nulos o blancos y comprueba que no es posible.
     try {
-        val coche1 = Coche("rojo","asdf","asdf",87,4,123123)
-        print(coche1)
+        coche1.marca = ""
     } catch (e: IllegalArgumentException) {
-        println("*ERROR* ${e.message}")
+        println("ERROR >> ${e.message}")
     }
 
+    try {
+        coche2.modelo = ""
+    } catch (e: IllegalArgumentException) {
+        println("ERROR >> ${e.message}")
+    }
+
+
+    //  Intenta instanciar y modificar con el número de caballos con un valor inferior a 70 o superior a 700 y comprueba que no es posible.
+    try {
+        coche1.numCaballos = 25
+    } catch (e: IllegalArgumentException) {
+        println("ERROR >> ${e.message}")
+    }
+
+    try {
+        coche2.numCaballos = 777
+    } catch (e: IllegalArgumentException) {
+        println("ERROR >> ${e.message}")
+    }
+
+
+    //  Intenta instanciar y modificar con el número de puertas con un valor inferior a 3 o superior a 5 y comprueba que no es posible.
+    try {
+        coche1.numeroPuertas = 1
+    } catch (e: IllegalArgumentException) {
+        println("ERROR >> ${e.message}")
+    }
+
+    try {
+        coche2.numeroPuertas = 10
+    } catch (e: IllegalArgumentException) {
+        println("ERROR >> ${e.message}")
+    }
+
+
+    //  Intenta instanciar y modificar con la matrícula con un valor que no tenga 7 caracteres y comprueba que no es posible.
+    try {
+        coche1.matricula = "1234578910"
+    } catch (e: IllegalArgumentException) {
+        println("ERROR >> ${e.message}")
+    }
+
+
+    //  Intenta instanciar y modificar con el color, el número de caballos, el número de puertas y la matrícula con valores nulos/blancos y comprueba que no es posible.
+    try {
+        coche1.color = null
+    } catch (e: IllegalArgumentException) {
+        println("ERROR >> ${e.message}")
+    }
+
+    try {
+        coche1.numCaballos = null
+    } catch (e: IllegalArgumentException) {
+        println("ERROR >> ${e.message}")
+    }
+
+    try {
+        coche2.numeroPuertas = null
+    } catch (e: IllegalArgumentException) {
+        println("ERROR >> ${e.message}")
+    }
+
+    try {
+        coche1.matricula = null
+    } catch (e: IllegalArgumentException) {
+        println("ERROR >> ${e.message}")
+    }
 }
